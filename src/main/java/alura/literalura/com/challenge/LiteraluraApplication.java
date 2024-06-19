@@ -7,21 +7,20 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fetchings.Author;
+import fetchings.Book;
+import fetchings.Books;
+import fetchings.GutendexFetch;
 import models.AuthorModel;
 import models.BookModel;
-import repositories.AuthorRepository;
-import repositories.BooksRepository;
-import services.Author;
-import services.Book;
-import services.Books;
-import services.GutendexFetch;
+import services.AuthorService;
+import services.BookService;
 
 
 @SpringBootApplication
@@ -117,8 +116,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 				authorModel.setAuthorName(author.getName());
 				authorModel.setBirthYear(author.getBirthYear());
 				authorModel.setDeathYear(author.getDeathYear());
-				authorRepository.save(authorModel);
-				authorRepository.flush();
+				authorService.save(authorModel);
 				cache.add(author.getName());
 			}
 		}
@@ -139,7 +137,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 			bookModel.setLanguages(book.getLanguages());
 			bookModel.setDownloadCount(book.getDownloadCount());
 			bookModel.setCopyright(book.isCopyright());
-			booksRepository.save(bookModel);
+			bookService.save(bookModel);
 		}
 		if(!isSearchingAnAuthor && !wasFinded) System.out.println("No hay ningun libro que contenga esa secuencia de letras");
 	}
@@ -179,9 +177,6 @@ public class LiteraluraApplication implements CommandLineRunner {
 	private static boolean isOneBook;
 	
 	/* REPOSITORIES */
-	@Autowired
-	private BooksRepository booksRepository;
-	
-	@Autowired
-	private AuthorRepository authorRepository;
+	private BookService bookService;
+	private AuthorService authorService;
 }

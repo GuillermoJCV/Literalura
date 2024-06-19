@@ -1,24 +1,24 @@
 package alura.literalura.com.challenge;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import models.AuthorModel;
-import models.BookModel;
 import repositories.AuthorRepository;
 import repositories.BooksRepository;
+import services.AuthorService;
+import services.BookService;
 
 @Configuration
 public class AppConfig {
-
+	
 	@Bean
-	BooksRepository booksRepository() {
-		return new BookModel();
+	BookService bookService(BooksRepository booksRepository) {
+		return new BookService(booksRepository);
 	}
 	
 	@Bean
-	AuthorRepository authorRepository() {
-		return new AuthorModel();
+	AuthorService authorService(AuthorRepository authorRepository) {
+		return new AuthorService(authorRepository);
 	}
-	
 }
