@@ -13,14 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fetchings.Author;
-import fetchings.Book;
-import fetchings.Books;
-import fetchings.GutendexFetch;
-import models.AuthorModel;
-import models.BookModel;
-import services.AuthorService;
-import services.BookService;
+import alura.literalura.com.challenge.fetchings.GutendexFetch;
+import alura.literalura.com.challenge.fetchings.Author;
+import alura.literalura.com.challenge.models.*;
+import alura.literalura.com.challenge.services.AuthorService;
+import alura.literalura.com.challenge.fetchings.*;
 
 
 @SpringBootApplication
@@ -116,7 +113,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 				authorModel.setAuthorName(author.getName());
 				authorModel.setBirthYear(author.getBirthYear());
 				authorModel.setDeathYear(author.getDeathYear());
-				authorService.save(authorModel);
+				//authorService.save(authorModel);
 				cache.add(author.getName());
 			}
 		}
@@ -137,7 +134,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 			bookModel.setLanguages(book.getLanguages());
 			bookModel.setDownloadCount(book.getDownloadCount());
 			bookModel.setCopyright(book.isCopyright());
-			bookService.save(bookModel);
+			//bookService.save(bookModel);
 		}
 		if(!isSearchingAnAuthor && !wasFinded) System.out.println("No hay ningun libro que contenga esa secuencia de letras");
 	}
@@ -176,7 +173,10 @@ public class LiteraluraApplication implements CommandLineRunner {
 	private static boolean isSearchingAnAuthor = false;
 	private static boolean isOneBook;
 	
-	/* REPOSITORIES */
-	private BookService bookService;
-	private AuthorService authorService;
+	/* SERVICES */
+	
+	// TODO : Lograr entrar al service (o usar directamente el repositorio)
+	
+	//private AuthorService authorService = new AuthorService();
+	
 }
